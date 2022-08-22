@@ -23,7 +23,8 @@
     "react-native-safe-area-context": "4.3.1",
     "react-native-screens": "~3.15.0",
     "undefined": "firebase/auth",
-    "@expo/vector-icons": "^13.0.0"
+    "@expo/vector-icons": "^13.0.0",
+    "expo-linking": "~3.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
