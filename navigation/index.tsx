@@ -1,14 +1,14 @@
-import { MaterialIcons, FontAwesome, Ionicons, Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons, Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { Pressable } from 'react-native';
 
 import { useAuthentication } from '../hooks/useAuthentication';
 import ModalScreen from '../screens/common/ModalScreen';
 import NotFoundScreen from '../screens/common/NotFoundScreen';
 import HomeScreen from '../screens/home';
+import HomeHeader from '../screens/home/header';
 import WalkingScreen from '../screens/walking';
 import ProfileScreen from '../screens/profile';
 import MatchingScreen from '../screens/matching';
@@ -67,19 +67,7 @@ function BottomTabNavigator() {
         component={HomeScreen}
         options={({ navigation }: RootTabScreenProps<'Home'>) => ({
           tabBarIcon: ({ color }) => <MaterialIcons name="home" size={28} color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+          header: (props) => <HomeHeader {...props} />,
         })}
       />
       <BottomTab.Screen

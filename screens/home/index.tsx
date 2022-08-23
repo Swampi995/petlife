@@ -1,21 +1,27 @@
 import { StyleSheet } from 'react-native';
 import { Button } from "@rneui/themed";
+import { FlashList } from "@shopify/flash-list";
 
 import { Text, View } from '../../components/Themed';
-import * as usersService from '../../services/users';
 import { RootTabScreenProps } from '../../navigation/types';
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
-
-  const signOut = () => {
-    usersService.signOut();
-  }
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Button onPress={signOut} title={'Sign out'} />
+      <View style={styles.header}>
+
+      </View>
+      <View style={styles.flashListContainer}>
+        {/* <FlashList
+          renderItem={({ item }) => {
+            return <TweetCell item={item} />;
+          }}
+          getItemType={({ item }) => {
+            return item.type;
+          }}
+          data={tweets}
+        /> */}
+      </View>
     </View>
   );
 }
@@ -26,13 +32,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  header: {
+
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  flashListContainer: {
+
+  }
 });
