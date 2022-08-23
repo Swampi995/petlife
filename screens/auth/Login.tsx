@@ -3,13 +3,13 @@ import { StyleSheet } from 'react-native';
 import { Button, Input, Icon } from "react-native-elements";
 
 import * as usersService from '../../services/users';
-import { Text, View, useThemeColor } from '../../components/Themed';
-import { AuthStackScreenProps } from '../../types';
+import { Text, View } from '../../components/Themed';
+import { AuthStackScreenProps } from '../../navigation/types';
+import Colors from '../../constants/Colors';
 
 export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const grey = useThemeColor('grey');
 
   const singIn = () => {
     usersService.signIn(email, password, signInCallback);
@@ -27,14 +27,14 @@ export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'
       <Input
         value={email}
         placeholder="Email"
-        leftIcon={<Icon tvParallaxProperties color={grey} style={styles.icon} type='font-awesome' name='envelope' size={20} />}
+        leftIcon={<Icon tvParallaxProperties color={Colors.grey} style={styles.icon} type='font-awesome' name='envelope' size={20} />}
         onChangeText={setEmail}
       />
       <Input
         value={password}
         secureTextEntry
         placeholder="Password"
-        leftIcon={<Icon tvParallaxProperties color={grey} style={styles.icon} type='font-awesome' name='lock' size={26} />}
+        leftIcon={<Icon tvParallaxProperties color={Colors.grey} style={styles.icon} type='font-awesome' name='lock' size={26} />}
         onChangeText={setPassword}
       />
       <Button onPress={singIn} title={'Sign in'} />

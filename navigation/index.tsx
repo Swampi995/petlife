@@ -1,4 +1,4 @@
-import { FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome, Ionicons, Foundation, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -6,10 +6,12 @@ import * as React from 'react';
 import { Pressable } from 'react-native';
 
 import { useAuthentication } from '../hooks/useAuthentication';
-import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import ModalScreen from '../screens/common/ModalScreen';
+import NotFoundScreen from '../screens/common/NotFoundScreen';
+import HomeScreen from '../screens/home';
+import WalkingScreen from '../screens/walking';
+import ProfileScreen from '../screens/profile';
+import MatchingScreen from '../screens/matching';
 import LoginScreen from '../screens/auth/Login';
 import RegisterScreen from '../screens/auth/Register';
 import { AuthStackParamList, RootStackParamList, RootTabParamList, RootTabScreenProps } from './types';
@@ -55,14 +57,16 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarShowLabel: false,
+      }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        name="Home"
+        component={HomeScreen}
+        options={({ navigation }: RootTabScreenProps<'Home'>) => ({
+          tabBarIcon: ({ color }) => <MaterialIcons name="home" size={28} color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -79,20 +83,29 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Matching"
+        component={MatchingScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Matching',
+          tabBarIcon: ({ color }) => <Ionicons name="md-paw" size={24} color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Walking"
+        component={WalkingScreen}
+        options={{
+          title: 'Walking',
+          tabBarIcon: ({ color }) => <Foundation name="guide-dog" size={30} color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="account" size={26} color={color} />,
         }}
       />
     </BottomTab.Navigator>
   );
-}
-
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }

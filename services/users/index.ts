@@ -1,12 +1,13 @@
 import {
-    getAuth, FacebookAuthProvider, signInWithEmailAndPassword,
+    FacebookAuthProvider, signInWithEmailAndPassword,
     signInWithCredential, createUserWithEmailAndPassword,
 } from 'firebase/auth';
+import { auth } from '../../config/firebase';
+
 import { getFirestore, addDoc, collection } from 'firebase/firestore';
 import * as Facebook from 'expo-facebook';
 import { Callback } from '../';
 
-const auth = getAuth();
 const db = getFirestore();
 
 export async function signIn(email: string, password: string, callback: Callback) {

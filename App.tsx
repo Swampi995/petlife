@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import './config/firebase';
 import useCachedResources from './hooks/useCachedResources';
 import Navigation from './navigation';
 

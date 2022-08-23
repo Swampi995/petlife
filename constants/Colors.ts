@@ -1,9 +1,9 @@
-export const tintColorLight = '#2f95dc';
-export const tintColorDark = '#fff';
-export const text = '#000';
-export const background = '#fff';
-export const tint = tintColorLight;
-export const tabIconDefault = '#ccc';
-export const tabIconSelected = tintColorLight;
-export const accent = '#6964c9';
-export const grey = '#e0e0e0';
+export default {
+  text: '#000',
+  background: '#fff',
+  tint: '#2f95dc',
+  tabIconDefault: '#ccc',
+  tabIconSelected: '#2f95dc',
+  accent: '#6964c9',
+  grey: '#e0e0e0',
+}

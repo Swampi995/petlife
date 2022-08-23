@@ -3,14 +3,14 @@ import { StyleSheet } from 'react-native';
 import { Button, Input, Icon } from "react-native-elements";
 
 import * as usersService from '../../services/users';
-import { View, useThemeColor } from '../../components';
-import { AuthStackScreenProps } from '../../types';
+import { View } from '../../components';
+import Colors from '../../constants/Colors';
+import { AuthStackScreenProps } from '../../navigation/types';
 
 export default function RegisterScreen({ navigation }: AuthStackScreenProps<'Register'>) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const grey = useThemeColor('grey');
 
   const submitRegister = () => {
     usersService.registerAccount(name, email, password, registerCallback);
@@ -32,20 +32,20 @@ export default function RegisterScreen({ navigation }: AuthStackScreenProps<'Reg
         <Input
           value={name}
           placeholder="Name"
-          leftIcon={<Icon tvParallaxProperties color={grey} style={styles.icon} type='font-awesome' name='user' size={26} />}
+          leftIcon={<Icon tvParallaxProperties color={Colors.grey} style={styles.icon} type='font-awesome' name='user' size={26} />}
           onChangeText={setName}
         />
         <Input
           value={email}
           placeholder="Email"
-          leftIcon={<Icon tvParallaxProperties color={grey} style={styles.icon} type='font-awesome' name='envelope' size={20} />}
+          leftIcon={<Icon tvParallaxProperties color={Colors.grey} style={styles.icon} type='font-awesome' name='envelope' size={20} />}
           onChangeText={setEmail}
         />
         <Input
           value={password}
           secureTextEntry
           placeholder="Password"
-          leftIcon={<Icon tvParallaxProperties color={grey} style={styles.icon} type='font-awesome' name='lock' size={26} />}
+          leftIcon={<Icon tvParallaxProperties color={Colors.grey} style={styles.icon} type='font-awesome' name='lock' size={26} />}
           onChangeText={setPassword}
         />
       </View>

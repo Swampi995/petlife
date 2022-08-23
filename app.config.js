@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
-const BUILD_NUMBER = 1;
+const IOS_BUILD_NUMBER = '1';
+const ANDROID_BUILD_NUMBER = 1;
 const VERSION = '1.0.0';
 
 export default {
@@ -11,13 +12,14 @@ export default {
     orientation: 'portrait',
     icon: './assets/images/icon.png',
     userInterfaceStyle: 'automatic',
+    scheme: 'peflife',
     splash: {
       image: './assets/images/splash.png',
       resizeMode: 'contain',
       backgroundColor: '#ffffff'
     },
     updates: {
-      fallbackToCacheTimeout: '0'
+      fallbackToCacheTimeout: 0
     },
     assetBundlePatterns: [
       '**/*'
@@ -25,11 +27,11 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: 'com.peflife',
-      buildNumber: BUILD_NUMBER,
+      buildNumber: IOS_BUILD_NUMBER,
     },
     android: {
       package: 'com.peflife',
-      versionCode: BUILD_NUMBER,
+      versionCode: ANDROID_BUILD_NUMBER,
       adaptiveIcon: {
         foregroundImage: './assets/images/adaptive-icon.png',
         backgroundColor: '#ffffff'
