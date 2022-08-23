@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { Button, Input, Icon } from "react-native-elements";
+import { Button, Input, Icon } from "@rneui/themed";
 
 import * as usersService from '../../services/users';
 import { Text, View } from '../../components/Themed';
