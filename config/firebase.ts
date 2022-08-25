@@ -12,10 +12,10 @@ const firebaseConfig = {
     appId: Constants.manifest?.extra?.firebaseAppId,
 };
 
-const app = initializeApp(firebaseConfig);
+const firebase = initializeApp(firebaseConfig);
 
-const auth = initializeAuth(app, {
+const auth = initializeAuth(firebase, {
     persistence: getReactNativePersistence(AsyncStorage)
 });
 
-export { app, auth };
+export { firebase, auth };

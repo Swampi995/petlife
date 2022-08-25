@@ -1,26 +1,37 @@
-import { StyleSheet } from 'react-native';
-import { Button } from "@rneui/themed";
+import { StyleSheet, Dimensions } from 'react-native';
+import { query, startAfter } from 'firebase/firestore';
 import { FlashList } from "@shopify/flash-list";
-
+import { useFirestoreInfiniteQuery } from "@react-query-firebase/firestore";
 import { Text, View } from '../../components/Themed';
+import { postsQuery } from '../../services/posts';
 import { RootTabScreenProps } from '../../navigation/types';
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
+  const { width } = Dimensions.get('screen');
+
+  const posts = useFirestoreInfiniteQuery('posts', postsQuery, (snapshot) => {
+    const lastDocument = snapshot.docs[snapshot.docs.length - 1];
+    return query(postsQuery, startAfter(lastDocument));
+  });
+
+  const data = posts.data?.pages.map((page) => page.docs.map((item) => item.data()).flat()).flat();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
 
       </View>
-      <View style={styles.flashListContainer}>
-        {/* <FlashList
+      <View style={[{ width }, styles.flashListContainer]}>
+        <FlashList
+          estimatedItemSize={50}
+          onEndReached={posts.fetchNextPage}
           renderItem={({ item }) => {
-            return <TweetCell item={item} />;
+            return <View >
+              <Text>{item?.message}</Text>
+            </View>
           }}
-          getItemType={({ item }) => {
-            return item.type;
-          }}
-          data={tweets}
-        /> */}
+          data={data}
+        />
       </View>
     </View>
   );
@@ -36,6 +47,9 @@ const styles = StyleSheet.create({
 
   },
   flashListContainer: {
+    flex: 1,
+  },
+  listItem: {
 
   }
 });
