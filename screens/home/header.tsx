@@ -1,12 +1,11 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Button } from "@rneui/themed";
-import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
+import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 
 import { Text, View } from '../../components/Themed';
 
-export default function HomeHeader(props: BottomTabHeaderProps) {
+export default function HomeHeader(props: NativeStackHeaderProps) {
     const insets = useSafeAreaInsets();
     return (
         <View style={[{ paddingTop: insets.top, }, styles.container]}>
@@ -14,7 +13,9 @@ export default function HomeHeader(props: BottomTabHeaderProps) {
                 <Text style={styles.text}>Header</Text>
             </View>
             <View style={styles.rightSide} >
-                <Ionicons name="create-outline" size={28} color="black" />
+                <TouchableOpacity onPress={() => props.navigation.navigate('NewPost')}>
+                    <Ionicons name="create-outline" size={28} color="black" />
+                </TouchableOpacity>
                 <MaterialIcons name="search" size={28} color="black" />
             </View>
         </View>

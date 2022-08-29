@@ -1,8 +1,6 @@
-import { User } from 'firebase/auth';
-
 export interface POST {
     message: string;
-    sender: User | null;
+    sender: string | undefined;
     created: Date;
 }
 

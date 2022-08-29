@@ -4,9 +4,9 @@ import { FlashList } from "@shopify/flash-list";
 import { useFirestoreInfiniteQuery } from "@react-query-firebase/firestore";
 import { Text, View } from '../../components/Themed';
 import { postsQuery } from '../../services/posts';
-import { RootTabScreenProps } from '../../navigation/types';
+import { HomeScreenProps } from '../../navigation/types';
 
-export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
+export default function FeedScreen({ navigation }: HomeScreenProps<'Feed'>) {
   const { width } = Dimensions.get('screen');
 
   const posts = useFirestoreInfiniteQuery('posts', postsQuery, (snapshot) => {

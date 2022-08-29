@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../../components/Themed';
-import { RootTabScreenProps } from '../../navigation/types';
+import { BottomTabProps } from '../../navigation/types';
 
-export default function MatchingScreen(props: RootTabScreenProps<'Matching'>) {
+export default function MatchingScreen(props: BottomTabProps<'Matching'>) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Matching</Text>

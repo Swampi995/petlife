@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../../components/Themed';
-import { RootTabScreenProps } from '../../navigation/types';
+import { BottomTabProps } from '../../navigation/types';
 
-export default function WalkingScreen(props: RootTabScreenProps<'Walking'>) {
+export default function WalkingScreen(props: BottomTabProps<'Walking'>) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Walking</Text>

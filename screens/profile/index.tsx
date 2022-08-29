@@ -3,9 +3,9 @@ import { Button } from "@rneui/themed";
 
 import * as usersService from '../../services/users';
 import { Text, View } from '../../components/Themed';
-import { RootTabScreenProps } from '../../navigation/types';
+import { BottomTabProps } from '../../navigation/types';
 
-export default function ProfileScreen(props: RootTabScreenProps<'Profile'>) {
+export default function ProfileScreen(props: BottomTabProps<'Profile'>) {
   const signOut = () => {
     usersService.signOut();
   }

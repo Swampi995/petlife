@@ -4,10 +4,10 @@ import { Button, Input, Icon } from "@rneui/themed";
 
 import * as usersService from '../../services/users';
 import { Text, View } from '../../components/Themed';
-import { AuthStackScreenProps } from '../../navigation/types';
+import { AuthScreenProps } from '../../navigation/types';
 import Colors from '../../constants/Colors';
 
-export default function LoginScreen({ navigation }: AuthStackScreenProps<'Login'>) {
+export default function LoginScreen({ navigation }: AuthScreenProps<'Login'>) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

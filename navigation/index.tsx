@@ -5,16 +5,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 
 import { useAuthentication } from '../hooks/useAuthentication';
-import ModalScreen from '../screens/common/ModalScreen';
+import NewPostModal from '../screens/home/NewPost';
 import NotFoundScreen from '../screens/common/NotFoundScreen';
-import HomeScreen from '../screens/home';
-import HomeHeader from '../screens/home/header';
+import FeedScreen from '../screens/home/Feed';
+import HomeHeader from '../screens/home/Header';
 import WalkingScreen from '../screens/walking';
 import ProfileScreen from '../screens/profile';
 import MatchingScreen from '../screens/matching';
 import LoginScreen from '../screens/auth/Login';
 import RegisterScreen from '../screens/auth/Register';
-import { AuthStackParamList, RootStackParamList, RootTabParamList, RootTabScreenProps } from './types';
+import { AuthStackParamList, RootStackParamList, BottomTabParamList, BottomTabProps, HomeStackParamList } from './types';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation() {
@@ -44,17 +44,13 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
     </Stack.Navigator>
   );
 }
 
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 function BottomTabNavigator() {
-
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -64,10 +60,10 @@ function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Home"
-        component={HomeScreen}
-        options={({ navigation }: RootTabScreenProps<'Home'>) => ({
+        component={HomeNavigator}
+        options={({ navigation }: BottomTabProps<'Home'>) => ({
+          headerShown: false,
           tabBarIcon: ({ color }) => <MaterialIcons name="home" size={28} color={color} />,
-          header: (props) => <HomeHeader {...props} />,
         })}
       />
       <BottomTab.Screen
@@ -95,5 +91,18 @@ function BottomTabNavigator() {
         }}
       />
     </BottomTab.Navigator>
+  );
+}
+
+const HomeStack = createNativeStackNavigator<HomeStackParamList>();
+
+function HomeNavigator() {
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Feed" component={FeedScreen} options={{ header: (props) => <HomeHeader {...props} /> }} />
+      <HomeStack.Group screenOptions={{ presentation: 'modal', headerShown: false }}>
+        <HomeStack.Screen name="NewPost" component={NewPostModal} />
+      </HomeStack.Group>
+    </HomeStack.Navigator>
   );
 }
