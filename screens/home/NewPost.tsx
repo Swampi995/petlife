@@ -1,29 +1,40 @@
 import { useState, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { Ionicons } from '@expo/vector-icons';
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Image, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { useFirestoreCollectionMutation } from "@react-query-firebase/firestore";
 import { Input } from "@rneui/themed";
 
 import { HomeScreenProps } from '../../navigation/types';
-import { postsCollection, newPost } from '../../services/posts';
+import { postsCollection, newPost, uploadImageAsync } from '../../services/posts';
 import Colors from '../../constants/Colors';
+import * as ImagePicker from 'expo-image-picker';
 import { Text, View } from '../../components/Themed';
 
 export default function NewPostModal(props: HomeScreenProps<'NewPost'>) {
   const [message, setMessage] = useState<string>();
-  const inputRef = useRef();
 
+  const [image, setImage] = useState<ImagePicker.ImageInfo>();
+
+  const inputRef = useRef();
   const mutation = useFirestoreCollectionMutation(postsCollection);
 
   const submitPost = async () => {
-    if (!message) {
-      return;
-    }
-
-    await mutation.mutateAsync(newPost(message));
+    const url = image?.uri && await uploadImageAsync(image.uri);
+    await mutation.mutateAsync(newPost(message, url));
     props.navigation.goBack();
   }
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 0,
+    });
+
+    if (result.cancelled === false) {
+      setImage(result);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -33,7 +44,10 @@ export default function NewPostModal(props: HomeScreenProps<'NewPost'>) {
       <View style={styles.body}>
         <Input ref={inputRef}
           inputContainerStyle={styles.input} value={message} placeholder={`What's on your mind?`} onChangeText={setMessage}
-          rightIcon={<TouchableOpacity onPress={submitPost} disabled={!message}>
+          leftIcon={<TouchableOpacity onPress={pickImage}>
+            <MaterialIcons name="add-a-photo" size={24} color="black" />
+          </TouchableOpacity>}
+          rightIcon={<TouchableOpacity onPress={submitPost}>
             <Ionicons name="ios-send" size={24} color="black" />
           </TouchableOpacity>} />
       </View>

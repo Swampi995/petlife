@@ -1,7 +1,8 @@
 export interface POST {
-    message: string;
     sender: string | undefined;
     created: Date;
+    message?: string;
+    imageUrl?: string;
 }
 
 export interface DBFirestore {

@@ -13,6 +13,14 @@ export default {
     icon: './assets/images/icon.png',
     userInterfaceStyle: 'automatic',
     scheme: 'peflife',
+    plugins: [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ],
     splash: {
       image: './assets/images/splash.png',
       resizeMode: 'contain',
