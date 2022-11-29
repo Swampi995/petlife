@@ -3,12 +3,12 @@ import {
     signInWithCredential, createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { auth } from '../../config/firebase';
-
-import { getFirestore, addDoc, collection } from 'firebase/firestore';
+import { addDoc } from 'firebase/firestore';
 import * as Facebook from 'expo-facebook';
+import { getCollection } from '../firebase';
 import { Callback } from '../';
 
-const db = getFirestore();
+export const usersCollection = getCollection('users');
 
 export async function signIn(email: string, password: string, callback: Callback) {
     await signInWithEmailAndPassword(auth, email, password).then(() => {
@@ -29,9 +29,10 @@ export async function registerAccount(name: string, email: string, password: str
         callback('error', error.message);
     });
 
-    await addDoc(collection(db, 'users'), {
+    await addDoc(usersCollection, {
         name,
         email: auth.currentUser?.email,
+        id: auth.currentUser?.uid,
     });
 }
 

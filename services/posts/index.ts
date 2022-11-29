@@ -1,16 +1,20 @@
+import uuid from 'react-native-uuid';
 import { firebase, auth } from '../../config/firebase';
-import { limit, serverTimestamp, query } from 'firebase/firestore';
+import { limit, serverTimestamp, query, where, getDocs, getDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { getCollection } from '../firebase';
-import uuid from 'react-native-uuid';
+import { usersCollection } from '../users';
 
 export const postsCollection = getCollection('posts');
 export const postsQuery = query(postsCollection, limit(20));
 
-export function newPost(message?: string, imageUrl?: string) {
+export async function newPost(message?: string, imageUrl?: string) {
+    const userSnap = await getDocs(query(usersCollection, where('id', '==', auth.currentUser?.uid)));
+    const user = userSnap.docs?.[0].ref;
+
     return {
         created: serverTimestamp(),
-        sender: auth.currentUser?.uid,
+        sender: user,
         ...(message && { message }),
         ...(imageUrl && { imageUrl }),
     }

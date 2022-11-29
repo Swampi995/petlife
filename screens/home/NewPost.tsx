@@ -21,7 +21,8 @@ export default function NewPostModal(props: HomeScreenProps<'NewPost'>) {
 
   const submitPost = async () => {
     const url = image?.uri && await uploadImageAsync(image.uri);
-    await mutation.mutateAsync(newPost(message, url));
+    const data = await newPost(message, url);
+    await mutation.mutateAsync(data);
     props.navigation.goBack();
   }
 
